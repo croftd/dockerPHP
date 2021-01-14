@@ -1,0 +1,34 @@
+version: '3.3'
+services:
+  # MARIADB
+  mariadb:
+    image: mariadb:latest
+    hostname: mariadb
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    restart: always
+    # this will create the mysql/mariadb with the following setup:
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: itas186
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: cats!
+
+  # APACHE/PHP
+  apache2:
+    image: php:7.4-apache
+    depends_on:
+      - mariadb
+    build: .
+    hostname: apache2
+    links:
+      - mariadb
+    working_dir: /var/www/html
+    # map the current local directory to /var/www/html served by Apache
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8080:80"
+    restart: always

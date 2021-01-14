@@ -1,2 +1,2 @@
 # dockerPHP
-basic docker/apache/mariadb php setup
+basic docker/apache/mariadb php setup for ITAS classes
