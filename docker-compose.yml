@@ -16,9 +16,8 @@ services:
       MYSQL_USER: myuser
       MYSQL_PASSWORD: cats!
 
-  # APACHE/PHP
+  # APACHE/PHP - note this will get built from the Dockerfile
   apache2:
-    image: php:7.4-apache
     depends_on:
       - mariadb
     build: .
